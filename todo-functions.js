@@ -1,3 +1,4 @@
+
 const getSavedTodos = function() {
     const todosJSON = localStorage.getItem("todos")
     
@@ -8,7 +9,7 @@ const getSavedTodos = function() {
     }
 }
 
-
+// Saving todos to local storage.
 const saveTodos = function(todos) {
     localStorage.setItem("todos", JSON.stringify(todos))
 }
@@ -35,13 +36,24 @@ const renderTodos = function (todos, filters) {
 }
 
 
-
 const generateTodoDom = function(todos) {
-    const p = document.createElement("p");
-    p.textContent = todos.text
-    return p
-}
+    const todoEl = document.createElement("div")
+    
+    const button = document.createElement("input")
+    button.setAttribute("type", "checkbox")
+    // button.type = "checkbox"
+    todoEl.appendChild(button)
+    
+    const textEL = document.createElement("span")
+    textEL.textContent = todos.text
+    todoEl.appendChild(textEL)
+    
+    const deleteButton = document.createElement("button")
+    deleteButton.textContent = "delete"
+    todoEl.appendChild(deleteButton)
 
+    return todoEl 
+}
 
 
 const generateSummaryDom = function (incompleteTodos) {
@@ -50,3 +62,5 @@ const generateSummaryDom = function (incompleteTodos) {
     document.querySelector('#todos').appendChild(summary)
     return summary
 }
+
+
