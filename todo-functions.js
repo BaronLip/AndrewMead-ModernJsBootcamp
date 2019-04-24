@@ -1,4 +1,4 @@
-
+// Retrieve todos from localStorage
 const getSavedTodos = function() {
     const todosJSON = localStorage.getItem("todos")
     
@@ -14,12 +14,11 @@ const saveTodos = function(todos) {
     localStorage.setItem("todos", JSON.stringify(todos))
 }
 
-
+// Render the todos on filters.
 const renderTodos = function (todos, filters) {
     const filteredTodos = todos.filter(function (todo) {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
         const hideCompletedMatch = !filters.hideCompleted || !todo.completed
-        debugger
         return searchTextMatch && hideCompletedMatch
     })
 
@@ -41,7 +40,7 @@ const generateTodoDom = function(todos) {
     
     const button = document.createElement("input")
     button.setAttribute("type", "checkbox")
-    // button.type = "checkbox"
+    // button.type = "checkbox" should also work.
     todoEl.appendChild(button)
     
     const textEL = document.createElement("span")
