@@ -35,7 +35,7 @@ const renderTodos = function (todos, filters) {
 }
 
 
-const generateTodoDom = function(todos) {
+const generateTodoDom = function(todo) {
     const todoEl = document.createElement("div")
     
     const button = document.createElement("input")
@@ -50,9 +50,33 @@ const generateTodoDom = function(todos) {
     const deleteButton = document.createElement("button")
     deleteButton.textContent = "delete"
     todoEl.appendChild(deleteButton)
+    
+    deleteButton.addEventListener("click", function(e) {
+        removeTodoDom(todo.id)
+        saveTodos(todos)
+        renderTodos(todos,filters)
+    })
 
     return todoEl 
 }
+
+const removeTodoDom = function (id) {
+    const todosIndex = todos.findIndex(function (todo) {
+        return todo.id === id
+    })
+
+    if (todosIndex > -1) {
+        todos.splice(todosIndex, 1)
+    }
+}
+
+
+//     deleteButton.addEventListener("click", function(){
+//         removeTodoDom(todos, id),
+//         saveTodos(todos),
+//         renderTodos(todos, filters)
+//     })
+// }
 
 
 const generateSummaryDom = function (incompleteTodos) {
