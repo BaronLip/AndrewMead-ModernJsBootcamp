@@ -40,9 +40,15 @@ const generateTodoDom = function(todo) {
     
     const button = document.createElement("input")
     button.setAttribute("type", "checkbox")
-    // button.type = "checkbox" should also work.
+    button.checked = todos.completed
     todoEl.appendChild(button)
-    
+    button.addEventListener("change", function(e) {
+        toggleTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+
+
     const textEL = document.createElement("span")
     textEL.textContent = todos.text
     todoEl.appendChild(textEL)
@@ -60,6 +66,20 @@ const generateTodoDom = function(todo) {
     return todoEl 
 }
 
+
+// Toggle todo completed function.
+const toggleTodo = function(id) {
+    const todo = todos.find(function (todo){
+        return todo.id === id
+    })
+
+    if (todo !==undefined) {
+        todo.completed = !todo.completed
+    }
+}
+
+
+// Remove todo by using delete button.
 const removeTodoDom = function (id) {
     const todosIndex = todos.findIndex(function (todo) {
         return todo.id === id
@@ -70,15 +90,7 @@ const removeTodoDom = function (id) {
     }
 }
 
-
-//     deleteButton.addEventListener("click", function(){
-//         removeTodoDom(todos, id),
-//         saveTodos(todos),
-//         renderTodos(todos, filters)
-//     })
-// }
-
-
+// Generate summary.
 const generateSummaryDom = function (incompleteTodos) {
     const summary = document.createElement('h2')
     summary.textContent = `You have ${incompleteTodos.length} todos left`
